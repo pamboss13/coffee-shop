@@ -7,8 +7,8 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  // Database is in the project root (created by prisma migrate)
-  const dbPath = path.join(process.cwd(), "dev.db");
+  // Database is in the prisma folder (created by prisma migrate)
+  const dbPath = path.join(process.cwd(), "prisma", "dev.db");
   const adapter = new PrismaBetterSqlite3({
     url: `file:${dbPath}`,
   });
