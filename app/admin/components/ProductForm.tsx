@@ -2,16 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Category } from "./CategoryForm";
-
-type Product = {
-  id: string;
-  name: string;
-  description: string | null;
-  price: number;
-  categoryId: string | null;
-  imageUrl: string | null;
-  available: boolean;
-};
+import { Product } from "./ProductsTable";
 
 type ProductFormProps = {
   product?: Product | null;
@@ -88,7 +79,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
       }
 
       setSuccess(isEditing ? "Product updated successfully!" : "Product added successfully!");
-      
+
       if (!isEditing) {
         // Clear form only when adding new product
         setFormData({

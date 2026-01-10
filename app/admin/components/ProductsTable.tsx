@@ -1,11 +1,8 @@
 "use client";
 
-type Category = {
-  id: string;
-  name: string;
-};
+import { Category } from './CategoryForm';
 
-type Product = {
+export type Product = {
   id: string;
   name: string;
   description: string | null;
@@ -81,11 +78,10 @@ export default function ProductsTable({
               </td>
               <td className="px-4 py-4 whitespace-nowrap">
                 <span
-                  className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    product.available
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-800"
-                  }`}
+                  className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${product.available
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                    }`}
                 >
                   {product.available ? "Available" : "Unavailable"}
                 </span>
