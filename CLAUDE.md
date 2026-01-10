@@ -33,7 +33,7 @@ npm run db:reset           # Reset database and run migrations
 - **Client Generation**: Prisma client generates to `app/generated/prisma` (not the default `node_modules/.prisma/client`)
 - **Import Path**: Always import from `@/app/generated/prisma/client`, NOT from `@prisma/client`
 - **Adapter**: Uses `@prisma/adapter-better-sqlite3` for SQLite with Better-SQLite3
-- **Database Location**: `dev.db` file in project root (created by migrations)
+- **Database Location**: `prisma/dev.db` file (created by migrations)
 - **Singleton Pattern**: `app/lib/prisma.ts` exports a singleton Prisma client instance
 
 Schema structure (prisma/schema.prisma):

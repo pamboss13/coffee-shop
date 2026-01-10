@@ -117,7 +117,7 @@ export default function AdminPage() {
               >
                 {tab.label}
                 {tab.disabled && (
-                  <span className="ml-2 text-xs text-gray-400">(Coming soon)</span>
+                  <span className="ml-2 text-xs text-gray-600">(Coming soon)</span>
                 )}
               </button>
             ))}
@@ -138,7 +138,7 @@ export default function AdminPage() {
 
             {/* Products List Section */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold mb-4">All Products</h2>
+              <h2 className="text-xl font-semibold text-black mb-4">All Products</h2>
               {isLoading ? (
                 <div className="text-center py-8 text-gray-500">
                   Loading products...

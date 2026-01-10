@@ -1,4 +1,5 @@
 import { Fragment } from "react/jsx-runtime"
+import Image  from 'next/image';  
 
 export interface CardProps {
   link: string;
@@ -9,10 +10,19 @@ export interface CardProps {
   imageUrl: string | null;
 };
 
-export default function Card({ link, name, description, price, available }: CardProps) {
+export default function Card({ link, name, description, price, available, imageUrl }: CardProps) {
   return (
     <Fragment>
       <div className="text-center bg-orange-200 hover:-translate-y-1 transform-all duration-500 hover:shadow-orange-200">
+        <div>
+          {imageUrl ? (
+            <Image src={imageUrl} alt={name} width={200} height={200} className="w-full h-48 object-cover" />
+          ) : (
+            <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+              <span>No image available</span>
+            </div>
+          )}
+        </div>
         <div className="text-black py-2 border-b-2 border-black">
           <h3 className="font-semibold">{name}</h3>
         </div>

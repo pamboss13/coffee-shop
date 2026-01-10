@@ -1,11 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-type Category = {
-  id: string;
-  name: string;
-};
+import { Category } from "./CategoryForm";
 
 type Product = {
   id: string;
@@ -126,7 +122,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-      <h2 className="text-xl font-semibold">
+      <h2 className="text-xl font-semibold text-black">
         {isEditing ? "Edit Product" : "Add New Product"}
       </h2>
 
@@ -143,7 +139,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
       )}
 
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-1">
+        <label htmlFor="name" className="block text-sm text-black font-medium mb-1">
           Name <span className="text-red-500">*</span>
         </label>
         <input
@@ -159,7 +155,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium mb-1">
+        <label htmlFor="description" className="block text-sm text-black font-medium mb-1">
           Description
         </label>
         <textarea
@@ -174,7 +170,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
       </div>
 
       <div>
-        <label htmlFor="price" className="block text-sm font-medium mb-1">
+        <label htmlFor="price" className="block text-sm text-black font-medium mb-1">
           Price <span className="text-red-500">*</span>
         </label>
         <input
@@ -192,7 +188,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
       </div>
 
       <div>
-        <label htmlFor="categoryId" className="block text-sm font-medium mb-1">
+        <label htmlFor="categoryId" className="block text-sm text-black font-medium mb-1">
           Category
         </label>
         <select
@@ -212,7 +208,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
       </div>
 
       <div>
-        <label htmlFor="imageUrl" className="block text-sm font-medium mb-1">
+        <label htmlFor="imageUrl" className="block text-sm text-black font-medium mb-1">
           Image URL
         </label>
         <input
