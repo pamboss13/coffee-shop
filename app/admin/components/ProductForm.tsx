@@ -140,7 +140,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Espresso"
         />
       </div>
@@ -155,7 +155,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
           value={formData.description}
           onChange={handleChange}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="A rich and bold single shot..."
         />
       </div>
@@ -173,7 +173,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
           required
           min="0"
           step="0.01"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="4.50"
         />
       </div>
@@ -187,7 +187,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
           name="categoryId"
           value={formData.categoryId}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">-- No Category --</option>
           {categories.map((cat) => (
@@ -208,7 +208,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
           name="imageUrl"
           value={formData.imageUrl}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="https://example.com/image.jpg"
         />
       </div>
@@ -222,7 +222,7 @@ export default function ProductForm({ product, onSuccess, onCancel }: Readonly<P
           onChange={handleChange}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
-        <label htmlFor="available" className="text-sm font-medium">
+        <label htmlFor="available" className="text-sm text-black font-medium">
           Available for purchase
         </label>
       </div>

@@ -222,9 +222,9 @@ export default function AdminPage() {
               />
             </div>
 
-            {/* Products List Section */}
+            {/* Categories List Section */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-semibold text-black mb-4">All Products</h2>
+              <h2 className="text-xl font-semibold text-black mb-4">All Categories</h2>
               {isLoading ? (
                 <div className="text-center py-8 text-gray-500">
                   Loading products...

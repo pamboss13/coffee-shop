@@ -118,8 +118,8 @@ export default function CategoryForm({ category, onSuccess, onCancel }: Readonly
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Espresso"
+          className="w-full px-3 py-2 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Coffee, Smoothies, etc.."
         />
       </div>
 
@@ -133,8 +133,8 @@ export default function CategoryForm({ category, onSuccess, onCancel }: Readonly
           value={formData.description}
           onChange={handleChange}
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="A rich and bold single shot..."
+          className="w-full px-3 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Category description"
         />
       </div>
 
