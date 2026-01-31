@@ -60,10 +60,10 @@ export default function CategoryForm({ category, onSuccess, onCancel }: Readonly
         throw new Error(data.error || "Something went wrong");
       }
 
-      setSuccess(isEditing ? "Product updated successfully!" : "Product added successfully!");
+      setSuccess(isEditing ? "Category updated successfully!" : "Category added successfully!");
 
       if (!isEditing) {
-        // Clear form only when adding new product
+        // Clear form only when adding new category
         setFormData({
           name: "",
           description: "",
@@ -144,7 +144,7 @@ export default function CategoryForm({ category, onSuccess, onCancel }: Readonly
           disabled={isLoading}
           className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isLoading ? "Saving..." : isEditing ? "Update Product" : "Add Product"}
+          {isLoading ? "Saving..." : isEditing ? "Update Category" : "Add Category"}
         </button>
 
         {onCancel && (

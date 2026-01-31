@@ -39,7 +39,7 @@ export default function Card({ link, name, description, price, available, imageU
         </div>
         <div className={`px-5 py-2 bg-black text-orange-200 hover:shadow-black border border-orange-200 ${available ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}>
           <a href={available ? link : undefined} className={!available ? 'pointer-events-none' : ''}>
-            {available ? 'Purchase Now' : 'Out of Stock'}
+            {available ? 'Add to Cart' : 'Out of Stock'}
           </a>
         </div>
       </div>

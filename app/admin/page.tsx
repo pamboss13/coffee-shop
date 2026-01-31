@@ -9,6 +9,7 @@ import CategoriesTable from "./components/CategoriesTable";
 type Category = {
   id: string;
   name: string;
+  description: string | null;
 };
 
 type Product = {
@@ -30,7 +31,7 @@ export default function AdminPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingProduct, setEditingProduct] = useState<Product | null | undefined>(null);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
