@@ -83,14 +83,14 @@ export default function AdminPage() {
   const handleEditCategory = (category: Category) => {
     setEditingCategory(category);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  };
 
   const handleCancelProductEdit = () => {
     setEditingProduct(null);
   };
 
   const handleCancelCategoryEdit = () => {
-    setEditingProduct(null);
+    setEditingCategory(null);
   };
 
   const handleDeleteProduct = async (product: Product) => {
@@ -228,7 +228,7 @@ export default function AdminPage() {
               <h2 className="text-xl font-semibold text-black mb-4">All Categories</h2>
               {isLoading ? (
                 <div className="text-center py-8 text-gray-500">
-                  Loading products...
+                  Loading categories...
                 </div>
               ) : (
                 <CategoriesTable
