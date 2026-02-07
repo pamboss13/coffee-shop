@@ -1,11 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import CartSidebar from "./CartSidebar";
+import { toggleCart } from "../slices/cartSlice";
 
 interface NavigationProps {
   cartItemCount?: number;
 }
 
 export default function Navigation({ cartItemCount }: NavigationProps) {
+  const dispatch = useDispatch();
+
+  const showCartHandler = () => {
+    dispatch(toggleCart())
+  }
 
   return (
     <div className="mt-2 border-b-2 border-orange-200 items-center flex justify-between w-full">
@@ -21,7 +31,7 @@ export default function Navigation({ cartItemCount }: NavigationProps) {
         <li className="hover:underline cursor-pointer">All Items</li>
         <li className="hover:underline cursor-pointer">Contact</li>
         <li className="hover:underline cursor-pointer">
-          <Link href="/cart" className="flex items-center space-x-1">
+          <button onClick={showCartHandler} className="flex items-center space-x-1">
             {cartItemCount !== undefined && cartItemCount > 0 && (
               <span className="bg-orange-200 text-black rounded-full w-6 h-6 flex items-center justify-center">
                 {cartItemCount}
@@ -32,10 +42,9 @@ export default function Navigation({ cartItemCount }: NavigationProps) {
             </svg>
             <span>Cart</span>
 
-          </Link>
+          </button>
         </li>
       </ul>
-
     </div>
   )
 }

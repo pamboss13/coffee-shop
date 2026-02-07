@@ -1,8 +1,7 @@
 import Navigation from "./components/Navigation";
 import Card from "./components/Card";
 import { prisma } from "./lib/prisma";
-import StoreProvider from "./components/StoreProvider";
- 
+
 export default async function Home() {
   // Fetch all products from database
   const products = await prisma.product.findMany({
@@ -15,8 +14,7 @@ export default async function Home() {
   });
 
   return (
-    <StoreProvider>
-      <div className="flex items-center  bg-zinc-50 font-sans dark:bg-black">
+    <div className="flex items-center  bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full flex-col items-center px-16 bg-white dark:bg-black sm:items-start">
         <Navigation />
         <div className="w-full mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -39,7 +37,6 @@ export default async function Home() {
           )}
         </div>
       </main>
-      </div>
-    </StoreProvider>
+    </div>
   );
 }

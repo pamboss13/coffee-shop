@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { VT323 } from "next/font/google";
 import "./globals.css";
+import StoreProvider from "./components/StoreProvider";
+import CartSidebar from "./components/CartSidebar";
 
 const terminalFont = VT323({
   weight: "400",
@@ -23,7 +25,10 @@ export default function RootLayout({
       <body
         className={`${terminalFont.variable} antialiased`}
       >
-        {children}
+        <StoreProvider>
+          <CartSidebar />
+          {children}
+        </StoreProvider>
       </body>
     </html>
   );
