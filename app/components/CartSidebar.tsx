@@ -1,26 +1,13 @@
 "use client";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/app/hooks/redux";
 import Image from "next/image";
 import { closeCart, removeItem, updateQuantity, clearCart } from "../slices/cartSlice";
 
-interface CartState {
-  cart: {
-    items: {
-      id: string;
-      name: string;
-      price: number;
-      imageUrl: string | null;
-      quantity: number;
-    }[];
-    isCartOpen: boolean;
-  };
-}
-
 export default function CartSidebar() {
-  const dispatch = useDispatch();
-  const items = useSelector((state: CartState) => state.cart.items);
-  const isOpen = useSelector((state: CartState) => state.cart.isCartOpen);
+  const dispatch = useAppDispatch();
+  const items = useAppSelector((state) => state.cart.items);
+  const isOpen = useAppSelector((state) => state.cart.isCartOpen);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);

@@ -2,7 +2,7 @@
 import { Fragment } from "react/jsx-runtime"
 import Image from 'next/image';
 import { addItem } from "../slices/cartSlice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/app/hooks/redux";
 import { type CartItem } from "../slices/cartSlice";
 
 export interface CardProps {
@@ -16,7 +16,7 @@ export interface CardProps {
 };
 
 export default function Card({ id, link, name, description, price, available, imageUrl }: CardProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleAddItem = () => {
     if (!available) return;
@@ -24,6 +24,7 @@ export default function Card({ id, link, name, description, price, available, im
       id,
       name,
       price,
+      imageUrl,
       quantity: 1,
     }
     dispatch(addItem(item))
