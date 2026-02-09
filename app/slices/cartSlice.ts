@@ -1,11 +1,10 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface CartItem {
+export interface CartItem {
   id: string;
   name: string;
   price: number;
-  imageUrl: string | null;
   quantity: number;
 }
 
@@ -26,6 +25,7 @@ export const cartSlice = createSlice({
     addItem: (state, action: PayloadAction<CartItem>) => {
       const itemExists = state.items.find(item => item.id === action.payload.id)
       itemExists ? itemExists.quantity++ : state.items.push({ ...action.payload, quantity: 1 })
+      console.log("item added")
     },
     removeItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(item => item.id !== action.payload);

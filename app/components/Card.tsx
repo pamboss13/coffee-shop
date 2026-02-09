@@ -1,8 +1,12 @@
+"use client";
 import { Fragment } from "react/jsx-runtime"
 import Image from 'next/image';
-import AddToCartButton from './AddToCartButton'
+import { addItem } from "../slices/cartSlice";
+import { useDispatch } from "react-redux";
+import { type CartItem } from "../slices/cartSlice";
 
 export interface CardProps {
+  id: string;
   link: string;
   name: string;
   description: string | null;
@@ -11,7 +15,20 @@ export interface CardProps {
   imageUrl: string | null;
 };
 
-export default function Card({ link, name, description, price, available, imageUrl }: CardProps) {
+export default function Card({ id, link, name, description, price, available, imageUrl }: CardProps) {
+  const dispatch = useDispatch();
+
+  const handleAddItem = () => {
+    if (!available) return;
+    const item: CartItem = {
+      id,
+      name,
+      price,
+      quantity: 1,
+    }
+    dispatch(addItem(item))
+  }
+
   return (
     <Fragment>
       <div className="text-center bg-orange-200 hover:-translate-y-1 transform-all duration-500 hover:shadow-orange-200">
@@ -39,9 +56,16 @@ export default function Card({ link, name, description, price, available, imageU
           )}
         </div>
         <div className={`px-5 py-2 bg-black text-orange-200 hover:shadow-black border border-orange-200 ${available ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}>
-          <AddToCartButton link={link} available={available} />
+          <button
+            onClick={handleAddItem}
+            disabled={!available}
+            className="w-full cursor-pointer"
+          >
+            {available ? 'Add to Cart' : 'Sold Out'}
+          </button>
         </div>
       </div>
     </Fragment>
   )
-}
+};
+
