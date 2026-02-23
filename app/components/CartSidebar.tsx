@@ -2,15 +2,15 @@
 
 import { useAppSelector, useAppDispatch } from "@/app/hooks/redux";
 import Image from "next/image";
-import { closeCart, removeItem, updateQuantity, clearCart } from "../slices/cartSlice";
+import { closeCart, removeItem, updateQuantity, clearCart, selectCartItemCount, selectCartTotalPrice } from "../slices/cartSlice";
 
 export default function CartSidebar() {
   const dispatch = useAppDispatch();
   const items = useAppSelector((state) => state.cart.items);
   const isOpen = useAppSelector((state) => state.cart.isCartOpen);
 
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalItems = useAppSelector(selectCartItemCount);
+  const totalPrice = useAppSelector(selectCartTotalPrice);
 
   const handleQuantityChange = (id: string, newQuantity: number) => {
     dispatch(updateQuantity({ id, quantity: newQuantity }));

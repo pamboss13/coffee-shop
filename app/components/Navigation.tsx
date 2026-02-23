@@ -2,15 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { toggleCart } from "../slices/cartSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks/redux";
+import { toggleCart, selectCartItemCount } from "../slices/cartSlice";
 
-interface NavigationProps {
-  cartItemCount?: number;
-}
-
-export default function Navigation({ cartItemCount }: NavigationProps) {
-  const dispatch = useDispatch();
+export default function Navigation() {
+  const dispatch = useAppDispatch();
+  const cartItemCount: number = useAppSelector(selectCartItemCount);
 
   const showCartHandler = () => {
     dispatch(toggleCart())
@@ -31,7 +28,7 @@ export default function Navigation({ cartItemCount }: NavigationProps) {
         <li className="hover:underline cursor-pointer">Contact</li>
         <li className="hover:underline cursor-pointer">
           <button onClick={showCartHandler} className="flex items-center space-x-1">
-            {cartItemCount !== undefined && cartItemCount > 0 && (
+            {cartItemCount > 0 && (
               <span className="bg-orange-200 text-black rounded-full w-6 h-6 flex items-center justify-center">
                 {cartItemCount}
               </span>
