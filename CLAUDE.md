@@ -111,10 +111,20 @@ When modifying the schema:
 3. Run `npm run db:generate` to regenerate Prisma client (in app/generated/prisma)
 4. Import from `@/app/generated/prisma/client` in your code
 
+## Recent Progress
+
+### Completed Features
+- ✅ **Cart System** (Feb 2026): Full Redux-based cart with add/remove/update quantity, cart sidebar, and item count badge in navigation
+- ✅ **Categories Management** (Jan 2026): Full CRUD UI in admin panel with API routes
+- ✅ **Product Display** (Jan 2026): Storefront loads and displays actual products from database
+
+### Known Issues
+- ⚠️ **Cart images missing**: Product images not passed to cart items (imageUrl missing in Card.tsx:27)
+- ⚠️ **Checkout button non-functional**: Button exists but no handler or orders API
+
 ## Current Limitations
 
 - No authentication implementation yet (User model exists but not wired up)
-- Categories management UI not implemented (placeholder tab in admin)
-- Orders management UI not implemented (placeholder tab in admin)
-- Storefront shows static placeholder cards, not actual products from database
+- Orders API not implemented (created then deleted in commits af8f130 → 304c264)
+- Orders management UI not implemented (tab disabled in admin panel)
 - No test suite configured
