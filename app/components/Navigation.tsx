@@ -40,6 +40,7 @@ export default function Navigation() {
 
           </button>
         </li>
+        <li className="hover:underline cursor-pointer"><Link href="/admin">Admin</Link></li>
       </ul>
     </div>
   )

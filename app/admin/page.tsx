@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import ProductForm from "./components/ProductForm";
 import ProductsTable from "./components/ProductsTable";
 import CategoryForm from "./components/CategoryForm";
 import CategoriesTable from "./components/CategoriesTable";
+import OrdersTable from "./components/OrdersTable";
+import OrderDetailsModal from "./components/OrderDetailsModal";
+import { type Order } from "./components/OrdersTable";
 
 type Category = {
   id: string;
@@ -34,6 +38,9 @@ export default function AdminPage() {
   const [editingProduct, setEditingProduct] = useState<Product | null | undefined>(null);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -59,10 +66,23 @@ export default function AdminPage() {
     }
   }, []);
 
+  const fetchOrders = useCallback(async () => {
+    try {
+      const response = await fetch("/api/orders");
+      const data = await response.json();
+      setOrders(data);
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchProducts();
     fetchCategories();
-  }, [fetchProducts, fetchCategories]);
+    fetchOrders();
+  }, [fetchProducts, fetchCategories, fetchOrders]);
 
   const handleProductSuccess = () => {
     fetchProducts();
@@ -143,15 +163,70 @@ export default function AdminPage() {
     }
   };
 
+  const handleViewOrderDetails = (order: Order) => {
+    setSelectedOrder(order);
+  };
+
+  const handleCloseOrderDetails = () => {
+    setSelectedOrder(null);
+  };
+
+  const handleOrderStatusChange = async (orderId: string, newStatus: string) => {
+    setUpdatingStatusId(orderId);
+    try {
+      const response = await fetch(`/api/orders/${orderId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to update order status");
+      }
+
+      fetchOrders();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Failed to update order status");
+    } finally {
+      setUpdatingStatusId(null);
+    }
+  };
+
+  const handleDeleteOrder = async (order: Order) => {
+    if (!confirm(`Are you sure you want to delete order ${order.id.substring(0, 8)}...?`)) {
+      return;
+    }
+
+    setDeletingId(order.id);
+    try {
+      const response = await fetch(`/api/orders/${order.id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete order");
+      }
+
+      fetchOrders();
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Failed to delete order");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   const tabs: { id: Tab; label: string; disabled?: boolean }[] = [
     { id: "products", label: "Products" },
     { id: "categories", label: "Categories" },
-    { id: "orders", label: "Orders", disabled: true },
+    { id: "orders", label: "Orders" },
   ];
 
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-6xl mx-auto py-8 px-4">
+        <button className="border border-blue-500 p-2 mb-2 rounded-lg text-blue-600"><Link href="/">Back to Store</Link></button>
         <h1 className="text-3xl font-bold text-gray-900 mb-8">
           Coffee Store Admin
         </h1>
@@ -243,8 +318,29 @@ export default function AdminPage() {
         )}
 
         {activeTab === "orders" && (
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-500">Orders management coming soon...</p>
+          <div className="space-y-8">
+            <div className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold text-black mb-4">All Orders</h2>
+              {isLoading ? (
+                <div className="text-center py-8 text-gray-500">
+                  Loading orders...
+                </div>
+              ) : (
+                <OrdersTable
+                  orders={orders}
+                  onViewDetails={handleViewOrderDetails}
+                  onStatusChange={handleOrderStatusChange}
+                  onDelete={handleDeleteOrder}
+                  isDeleting={deletingId}
+                  isUpdatingStatus={updatingStatusId}
+                />
+              )}
+            </div>
+
+            <OrderDetailsModal
+              order={selectedOrder}
+              onClose={handleCloseOrderDetails}
+            />
           </div>
         )}
       </div>

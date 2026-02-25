@@ -2,8 +2,8 @@ import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { PrismaClient } from "../app/generated/prisma/client";
 import path from "path";
 
-// Database is in the project root (created by prisma migrate)
-const dbPath = path.join(process.cwd(), "dev.db");
+// Database is in the prisma folder (created by prisma migrate)
+const dbPath = path.join(process.cwd(), "prisma", "dev.db");
 const adapter = new PrismaBetterSqlite3({
   url: `file:${dbPath}`,
 });
@@ -44,7 +44,7 @@ async function main() {
 
   // Create products
   const products = await Promise.all([
-    // Hot Drinks
+    // Hot Drinks.
     prisma.product.upsert({
       where: { id: "espresso" },
       update: {},
@@ -163,6 +163,7 @@ async function main() {
 
   console.log(`Created ${products.length} products`);
 
+
   // Create a demo admin user (password would be hashed in real app)
   const adminUser = await prisma.user.upsert({
     where: { email: "admin@coffeestore.com" },
@@ -191,8 +192,101 @@ async function main() {
 
   console.log("Created customer user:", customerUser.email);
 
+  // Create sample orders for testing
+  // First, delete existing orders to avoid duplicates on re-seed
+  await prisma.orderItem.deleteMany({});
+  await prisma.order.deleteMany({});
+
+  const order1 = await prisma.order.create({
+    data: {
+      userId: customerUser.id,
+      status: "pending",
+      total: 8.00,
+      items: {
+        create: [
+          { productId: "latte", quantity: 1, price: 4.50 },
+          { productId: "croissant", quantity: 1, price: 3.50 },
+        ],
+      },
+    },
+  });
+
+  const order2 = await prisma.order.create({
+    data: {
+      userId: customerUser.id,
+      status: "confirmed",
+      total: 12.75,
+      items: {
+        create: [
+          { productId: "cappuccino", quantity: 2, price: 4.50 },
+          { productId: "muffin", quantity: 1, price: 3.25 },
+          { productId: "espresso", quantity: 1, price: 2.50 },
+        ],
+      },
+    },
+  });
+
+  const order3 = await prisma.order.create({
+    data: {
+      userId: customerUser.id,
+      status: "preparing",
+      total: 9.00,
+      items: {
+        create: [
+          { productId: "iced-latte", quantity: 1, price: 4.75 },
+          { productId: "cold-brew", quantity: 1, price: 4.25 },
+        ],
+      },
+    },
+  });
+
+  const order4 = await prisma.order.create({
+    data: {
+      userId: customerUser.id,
+      status: "ready",
+      total: 5.25,
+      items: {
+        create: [
+          { productId: "iced-mocha", quantity: 1, price: 5.25 },
+        ],
+      },
+    },
+  });
+
+  const order5 = await prisma.order.create({
+    data: {
+      userId: customerUser.id,
+      status: "completed",
+      total: 15.50,
+      items: {
+        create: [
+          { productId: "mocha", quantity: 2, price: 5.00 },
+          { productId: "americano", quantity: 1, price: 3.00 },
+          { productId: "croissant", quantity: 1, price: 3.50 },
+        ],
+      },
+    },
+  });
+
+  const order6 = await prisma.order.create({
+    data: {
+      userId: customerUser.id,
+      status: "cancelled",
+      total: 6.75,
+      items: {
+        create: [
+          { productId: "muffin", quantity: 1, price: 3.25 },
+          { productId: "croissant", quantity: 1, price: 3.50 },
+        ],
+      },
+    },
+  });
+
+  console.log("Created 6 sample orders:", [order1.id, order2.id, order3.id, order4.id, order5.id, order6.id].map(id => id.substring(0, 8)));
+
   console.log("Seeding completed!");
 }
+
 
 main()
   .catch((e) => {
