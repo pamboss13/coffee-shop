@@ -14,7 +14,7 @@ export default function Navigation() {
   }
 
   return (
-    <div className="mt-2 border-b-2 border-orange-200 items-center flex justify-between w-full">
+    <div className="mt-1 bg-black border-b-2 border-orange-200 items-center flex justify-between  w-full">
       <Image
         src="/logo.png"
         alt="Next.js logo"
